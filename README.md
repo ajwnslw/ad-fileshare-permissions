@@ -2,7 +2,7 @@
 <img src="https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/efe94bff-a469-4342-a4c6-e927befd13b9" height = 20% width = 20%/>
 </p>
 
-<h1 align = "center">Network Fileshare and Permissions in Active Directory</h1>
+<h1 align = "center">Network File Shares and Permissions in Active Directory</h1>
 File sharing and permission set up is an essential in a business structure in order to organize resources and make sure users have the appropriate permissions and access to files they need. This tutorial demonstrates how file sharing and permissions work in the Active Directory domain.
 
 <br />
