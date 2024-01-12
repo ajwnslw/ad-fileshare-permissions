@@ -1,17 +1,17 @@
 <p align="center">
-<img src="https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/efe94bff-a469-4342-a4c6-e927befd13b9" height = 20% width = 20%/>
+<img src="https://helpdeskgeek.com/wp-content/pictures/2019/04/share-files.png" height = 30% width = 30%/>
 </p>
 
 <h1 align = "center">Network File Shares and Permissions in Active Directory</h1>
-File sharing and permission set up is an essential in a business structure in order to organize resources and make sure users have the appropriate permissions and access to files they need. This tutorial demonstrates how file sharing and permissions work in the Active Directory domain.
+Organizing resources and ensuring proper user permissions and file access are crucial aspects of business structure. This tutorial illustrates the functioning of file sharing and permissions within the Active Directory domain.
 
 <br />
 
 <h2>Environments and Technologies Used</h2>
 <ul>
-  <li>Microsoft Azure (Virtual Machines/Compute)</li>
+  <li>Microsoft Azure (Virtual Machines)</li>
   <li>Remote Desktop</li>
-  <li>Active Directory Domain Services</li>
+  <li>Active Directory</li>
 </ul>
 
 <br />
@@ -24,40 +24,40 @@ File sharing and permission set up is an essential in a business structure in or
 
 <br />
 
-<h2>Steps</h2>
+<h2>Procedure</h2>
 
-<h3>Creating Sample Fileshares with Various Permissions</h3>
+<h3>Creating File Shares and setting Permissions</h3>
 
 <p>
   <ul>
-    <li>Have your Domain Controller VM connect and log in as an admin (<b>mydomain.com\jane_admin</b>) and have your Client VM connect and log in as a random user generated through the powershell script during configuration</li>
-    <li>In the Domain Controller VM, create the four folders below in the C:\ Drive and set the <b>Permissions</b> in these folders (by opening the folder's <b>Properties</b> and click on <b>Share</b> under the Sharing tab)</li>
+    <li>Log into your Domain Controller VM (DC-1) as an admin (mydomain.com\jane_admin). Separately, log into your Client VM (Client-1) as a random user (generated using Powershell script).</li>
+    <li>In DC-1, create the four following folders in the C:\ Drive and set their permissions (right-click -> Properties -> Sharing -> Share)</li>
     <ul>
       <li><b>read_access</b> - add the group Domain Users and set Permissions to Read</li>
       <li><b>write_access</b> - add the group Domain Users and set Permissions to Read/Write</li>
       <li><b>no_access</b> - add the group Domain Admins and set Permissions to Read/Write</li>
-      <li><b>accounting</b> - skipped for now</li>
+      <li><b>accounting</b> - skip, set permissions later</li>
     </ul>
-    <li>Example of setting group and permissions for read_access</li>
-    <ul>
-      <li><img src ="https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/0942d01d-f85f-4b10-a257-f399c3fc5e26" width = 80% height = 80%/></li>
-    </ul>
+    <br />
+    <li>Screenshot Example</li>
+      <img src ="https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/0942d01d-f85f-4b10-a257-f399c3fc5e26" width = 80% height = 80%/>
   </ul>
 </p>
 
 <br/>
 
-<h3>Attempting to Access Fileshares</h3>
+<h3>Accessing File Shares</h3>
 
 <p>
   <ul>
-    <li>Go to the Client VM and navigate to the shared folder through <b>File Explorer</b> and typing <b>\\dc-1</b></li>
+    <li>Open File Explorer in Client-1 VM. At the top, type <b>\\dc-1</b> to access the previously created folders.</li>
     <ul>
-      <li><img src ="https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/3144b792-b6bf-4f27-b798-d2d8256308ff" width = 80% height = 80%/></li>
+      <img src ="https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/3144b792-b6bf-4f27-b798-d2d8256308ff" width = 80% height = 80%/></li>
     </ul>
-    <li>Attempt to access the folders through the Client VM; the only one that should be inaccessible by how the permissions are set should be <b>no_access</b></li>
+    <br />
+    <li>Based on the permissions that were set by the admin in DC-1, all folder should be accessible by the random user except for "no_access".</li>
     <ul>
-      <li><img src ="https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/bbc34c03-d505-43b9-aadc-9b3b73db65be" width = 80% height = 80%/></li>
+      <img src ="https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/bbc34c03-d505-43b9-aadc-9b3b73db65be" width = 80% height = 80%/>
     </ul>
   </ul>
 </p>
@@ -68,25 +68,27 @@ File sharing and permission set up is an essential in a business structure in or
 
 <p>
   <ul>
-    <li>Head back to the Domain Controller VM, go to the Server Manager Board and go to <b>Active Directory Users and Computers</b> and create a new <b>Organizational Unit (OU)</b> and name it "_SECURITY_GROUP."</li>
+    <li>Return to the DC-1 VM, navigate to the Server Manager Dashboard, access Active Directory Users and Computers, and establish a new Organizational Unit (OU) named "_SECURITY_GROUPS".</li>
     <ul>
-      <li><img src = "https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/af27e138-36de-44b0-85e9-a2b37088d496" width = 80% height = 80%/></li>
+      <img src = "https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/af27e138-36de-44b0-85e9-a2b37088d496" width = 80% height = 80%/>
     </ul>
-    <li>Inside the OU, create a <b>Group</b> and name it "ACCOUNTANTS"</li>
+    <br />
+    <li>Create a new Group called "ACCOUNTANTS" within "_SECURITY_GROUPS".</li>
     <ul>
-      <li><img src = "https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/12e4bde2-5aad-4981-b1b9-4fe847355b1c" width = 80% height = 80%/></li>
+      <img src = "https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/12e4bde2-5aad-4981-b1b9-4fe847355b1c" width = 80% height = 80%/>
     </ul>
-    <li>Locate the <b>accounting</b> folder created in C:\ Drive and add the ACCOUNTANTS group and set its permissions to Read/Write</li>
+    <br />
+    <li>Find the accounting folder within the C:\ Drive, include the ACCOUNTANTS group, and configure its permissions to Read/Write.</li>
     <ul>
-      <li><img src = "https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/567b094a-da96-49aa-ba2f-9f70d9c26844" width = 80% height = 80%/></li>
+      <img src = "https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/567b094a-da96-49aa-ba2f-9f70d9c26844" width = 80% height = 80%/>
     </ul>
-    <li>The user logged in the Client VM should not have access to the accounting folder since it's not part of the Group. Log off the Client VM and remember the username you used to log in to the Client as it's going to be set as part of the ACCOUNTANTS group</li>
-    <li>In the Domain Controller VM, go to the _SECURITY_GROUP OU,  right click on the ACCOUNTANTS to open up <b>Properites</b>, go to the <b>Members</b> tab and add the user as a member of the Group</li>
+    <br />
+    <li>The user logged into the Client-1 VM should be denied access to the accounting folder because they are not a member of the Group. Log out of the Client-1 VM, and make note of the username used for logging in, as it will be added to the ACCOUNTANTS group.</li>
+    <li>Within the DC-1 VM, navigate to the "_SECURITY_GROUPS" Organizational Unit, right-click on ACCOUNTANTS to access Properties, proceed to the Members tab, and include the user as a member of the Group.</li>
     <ul>
-      <li>In this example, the user "ban.doh" is used</li>
-      <li><img src = "https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/9ccc7a04-e3eb-4145-8485-2431280b86e7" width = 80% height = 80%/></li>
+      <img src = "https://github.com/ColtonTrauCC/network-fileshare/assets/147654000/9ccc7a04-e3eb-4145-8485-2431280b86e7" width = 80% height = 80%/>
     </ul>
-    <li>Sign back into the Client VM with user you made part of the ACCOUNTANTS group and it should now have access to the accounting folder</li>
+    <li>Re-login to the Client-1 VM using the user who has been added to the ACCOUNTANTS group; now, they should have access to the accounting folder.</li>
   </ul>
 </p>
 
